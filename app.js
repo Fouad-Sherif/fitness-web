@@ -1,5 +1,6 @@
 require('dotenv').config();
 const express = require('express');
+const cors= require('cors');
 const bodyParser = require('body-parser');
 const cookieParser = require("cookie-parser");
 const authRoutes = require('./routes/authRoutes');
@@ -9,7 +10,13 @@ const personalTrainerRoutes = require('./routes/personalTrainerRoutes');
 const bookingRoutes = require('./routes/bookingRoutes');
 
 const app = express();
-const PORT = process.env.PORT || 666;
+const PORT =  666;
+app.use(
+    cors({
+        origin:"http://localhost:3000",
+        credentials:true
+    })
+)
 
 app.use(bodyParser.json());
 app.use(cookieParser());

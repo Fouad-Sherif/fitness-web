@@ -23,7 +23,7 @@ const db = new sqlite3.Database('./fitness.db', (err) => {
           Location TEXT NOT NULL,
           pricepermonth REAL NOT NULL,
           priceper3months REAL NOT NULL,
-          priceper1year REAL NOT NULL,
+          priceper1year REAL NOT NULL
         )
       `);
 
@@ -49,7 +49,7 @@ const db = new sqlite3.Database('./fitness.db', (err) => {
           trainerid INTEGER ,
           FOREIGN KEY (userid) REFERENCES users(id),
            FOREIGN KEY (gymid) REFERENCES gymlocations(id),
-            FOREIGN KEY (trainerid) REFERENCES personaltrainers(id),
+            FOREIGN KEY (trainerid) REFERENCES personaltrainers(id)
           
         )
       `);

@@ -5,11 +5,11 @@ const db = require('../database/db');
 const SECRET_KEY = 'fouad_is_writing';
 
 exports.register = (req, res) => {
-  const { username,email, password,ISADMIN  } = req.body;
+  const { username,email, password,isAdmin  } = req.body;
   const hashedPassword = bcrypt.hashSync(password, 10);
-  const sql = `INSERT INTO users (username,email, password,ISADMIN) VALUES (?, ?, ?, ?, ?)`;
+  const sql = `INSERT INTO users (username,email, password,ISADMIN) VALUES (?, ?, ?, ?)`;
 
-  db.run(sql, [username,email, hashedPassword,ISADMIN], function (err) {
+  db.run(sql, [username,email, hashedPassword,isAdmin], function (err) {
     if (err) return res.status(500).json({ error: err.message });
     res.status(201).json({ id: this.lastID });
   });
@@ -31,6 +31,6 @@ exports.login = (req, res) => {
         secure:true,
     });
 
-    res.json({ message: "Logged In successfully" });
+    res.json({ message: "Logged In successfully" , isAdmin : user.ISADMIN });
   });
 };

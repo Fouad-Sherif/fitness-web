@@ -1,10 +1,12 @@
-import React from 'react';
+import React, { useState } from 'react';
+
 const RegistrationForm = () => {
-  let username = '';
-  let email = '';
-  let password = '';
-  let isAdmin = false;
-  let message = '';
+  const [username, setUsername] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [isAdmin, setIsAdmin] = useState(false);
+  const [message, setMessage] = useState('');
+
   const registerUser = () => {
     fetch('http://localhost:666/auth/register', {
       method: 'POST',
@@ -15,14 +17,15 @@ const RegistrationForm = () => {
         if (!response.ok) {
           throw new Error('Registration failed');
         }
-        message = 'Registration successful';
-        alert(message); 
+        setMessage('Registration successful');
+        alert('Registration successful'); 
       })
       .catch((error) => {
-        message = error.message;
-        alert(message); 
+        setMessage(error.message);
+        alert(error.message); 
       });
   };
+
   return (
     <div className="form-section">
       <h3>User Registration</h3>
@@ -30,21 +33,24 @@ const RegistrationForm = () => {
         <input
           type="text"
           placeholder="Name"
-          onChange={(e) => (username = e.target.value)} 
+          value={username}
+          onChange={(e) => setUsername(e.target.value)}
           required
         />
         <br />
         <input
           type="email"
           placeholder="Email"
-          onChange={(e) => (email = e.target.value)} 
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
           required
         />
         <br />
         <input
           type="password"
           placeholder="Password"
-          onChange={(e) => (password = e.target.value)} 
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
           required
         />
         <br />
@@ -52,7 +58,7 @@ const RegistrationForm = () => {
           <input
             type="checkbox"
             checked={isAdmin}
-            onChange={(e) => (isAdmin = e.target.checked)} 
+            onChange={(e) => setIsAdmin(e.target.checked)} 
           />
           Admin
         </label>
