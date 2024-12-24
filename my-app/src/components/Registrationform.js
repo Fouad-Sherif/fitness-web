@@ -1,15 +1,15 @@
 import React from 'react';
 const RegistrationForm = () => {
-  let name = '';
+  let username = '';
   let email = '';
   let password = '';
   let isAdmin = false;
   let message = '';
   const registerUser = () => {
-    fetch('http://localhost:555/user/register', {
+    fetch('http://localhost:666/auth/register', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ name, email, password, isAdmin }),
+      body: JSON.stringify({ username, email, password, isAdmin }),
     })
       .then((response) => {
         if (!response.ok) {
@@ -30,7 +30,7 @@ const RegistrationForm = () => {
         <input
           type="text"
           placeholder="Name"
-          onChange={(e) => (name = e.target.value)} 
+          onChange={(e) => (username = e.target.value)} 
           required
         />
         <br />

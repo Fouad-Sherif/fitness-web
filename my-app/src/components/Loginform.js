@@ -6,7 +6,7 @@ const LoginForm = ({navigate}) => {
   let message = '';
   const loginUser = async () => {
     try{
-   const response= await fetch('http://localhost:555/user/login', {
+   const response= await fetch('http://localhost:666/auth/login', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ email, password })
@@ -18,7 +18,7 @@ const LoginForm = ({navigate}) => {
         if(userData.admin===1)
           navigate("add-gyms")
         else
-        navigate("home");
+        navigate("gyms");
 }
       
       catch(error)  {

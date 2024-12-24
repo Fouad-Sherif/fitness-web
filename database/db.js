@@ -10,21 +10,53 @@ const db = new sqlite3.Database('./fitness.db', (err) => {
       CREATE TABLE IF NOT EXISTS users (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
         username TEXT NOT NULL UNIQUE,
-        password TEXT NOT NULL
+        email TEXT NOT NULL UNIQUE,
+        password TEXT NOT NULL,
+        ISADMIN BOOLEAN NOT NULL DEFAULT 0
       )
     `);
 
-    // Create Workouts Table
+
     db.run(`
-      CREATE TABLE IF NOT EXISTS workouts (
-        id INTEGER PRIMARY KEY AUTOINCREMENT,
-        user_id INTEGER NOT NULL,
-        name TEXT NOT NULL,
-        duration INTEGER NOT NULL,
-        calories_burned INTEGER NOT NULL,
-        FOREIGN KEY (user_id) REFERENCES users (id)
-      )
-    `);
+        CREATE TABLE IF NOT EXISTS gymlocations (
+          id INTEGER PRIMARY KEY AUTOINCREMENT,
+          Location TEXT NOT NULL,
+          pricepermonth REAL NOT NULL,
+          priceper3months REAL NOT NULL,
+          priceper1year REAL NOT NULL,
+        )
+      `);
+
+
+      db.run(`
+        CREATE TABLE IF NOT EXISTS personaltrainers (
+          id INTEGER PRIMARY KEY AUTOINCREMENT,
+          Trainername TEXT NOT NULL,
+          gymid INTEGER NOT NULL,
+          pricepermonth REAL NOT NULL,
+          priceper3months REAL NOT NULL,
+          priceper1year REAL NOT NULL,
+          FOREIGN KEY (gymid) REFERENCES gymlocations(id) 
+        )
+      `);
+
+
+      db.run(`
+        CREATE TABLE IF NOT EXISTS booking (
+          id INTEGER PRIMARY KEY AUTOINCREMENT,
+          userid INTEGER NOT NULL,
+          gymid INTEGER NOT NULL,
+          trainerid INTEGER ,
+          FOREIGN KEY (userid) REFERENCES users(id),
+           FOREIGN KEY (gymid) REFERENCES gymlocations(id),
+            FOREIGN KEY (trainerid) REFERENCES personaltrainers(id),
+          
+        )
+      `);
+  
+
+   
+    
   }
 });
 
