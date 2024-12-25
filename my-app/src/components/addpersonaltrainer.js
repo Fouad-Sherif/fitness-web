@@ -78,7 +78,7 @@ const AddTrainerForm = ({ navigate }) => {
           </option>
           {gyms.map((gym) => (
             <option key={gym.id} value={gym.id}>
-              {gym.location}
+              {gym.Location}
             </option>
           ))}
         </select>

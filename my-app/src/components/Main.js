@@ -17,8 +17,8 @@ const Main = () => {
     currentPage = <LoginForm navigate={setPage} setUser={setUser} />;
   else if (page === "register") currentPage = <RegistrationForm />;
   else if (page === "gyms") currentPage = <Gyms />;
-  else if (page === "addgyms" && user?.isAdmin) currentPage = <AddGyms />;
-  else if (page === "addpersonaltrainers" && user?.isAdmin)
+  else if (page === "addgyms") currentPage = <AddGyms  navigate={setPage} />;
+  else if (page === "addpersonaltrainers")
     currentPage = <AddPersonalTrainers />;
   else currentPage = <Home />; // Default to home for invalid pages
 

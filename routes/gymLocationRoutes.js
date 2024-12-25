@@ -3,6 +3,6 @@ const { getGymLocations, addGymLocation } = require('../controllers/gymLocations
 const router = express.Router();
 
 router.post('/add', addGymLocation);
-router.post('/get', getGymLocations);
+router.get('/get', getGymLocations);
 
 module.exports = router;

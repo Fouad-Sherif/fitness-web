@@ -33,15 +33,16 @@ const ChooseGymAndTrainer = ({ navigate, userId }) => {
 
     // Fetch gym prices
     const gym = gyms.find((g) => g.id === parseInt(gymId));
+    console.log(gym);
     setGymPrices({
-      pricePerMonth: gym.pricePerMonth,
-      pricePer3Months: gym.pricePer3Months,
-      pricePer1Year: gym.pricePer1Year,
+      pricePerMonth: gym.pricepermonth,
+      pricePer3Months: gym.priceper3months,
+      pricePer1Year: gym.priceper1year,
     });
 
     // Fetch trainers for the selected gym
     try {
-      const response = await fetch(`http://localhost:666/trainers?gymId=${gymId}`);
+      const response = await fetch(`http://localhost:666/personaltrainers/trainers?gymId=${gymId}`);
       if (!response.ok) {
         throw new Error('Failed to fetch trainers');
       }
@@ -56,9 +57,9 @@ const ChooseGymAndTrainer = ({ navigate, userId }) => {
     setSelectedTrainer(trainerId);
     const trainer = trainers.find((t) => t.id === parseInt(trainerId));
     setTrainerPrices({
-      pricePerMonth: trainer.pricePerMonth,
-      pricePer3Months: trainer.pricePer3Months,
-      pricePer1Year: trainer.pricePer1Year,
+      pricePerMonth: trainer.pricepermonth,
+      pricePer3Months: trainer.priceper3months,
+      pricePer1Year: trainer.priceper1year,
     });
   };
 
@@ -69,11 +70,17 @@ const ChooseGymAndTrainer = ({ navigate, userId }) => {
     }
 
     try {
+        const storedUserData = sessionStorage.getItem("userData");
+        if (storedUserData) {
+            const userData = JSON.parse(storedUserData);
+            const userId = userData.userId; 
+           
+    
       const response = await fetch('http://localhost:666/booking/add', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          userId,
+          userId : userId,
           gymId: parseInt(selectedGym),
           trainerId: selectedTrainer ? parseInt(selectedTrainer) : null,
         }),
@@ -84,6 +91,7 @@ const ChooseGymAndTrainer = ({ navigate, userId }) => {
       }
 
       setMessage('Your booking has been submitted!');
+    }
     } catch (error) {
       setMessage(error.message);
     }
@@ -105,7 +113,7 @@ const ChooseGymAndTrainer = ({ navigate, userId }) => {
         </option>
         {gyms.map((gym) => (
           <option key={gym.id} value={gym.id}>
-            {gym.location}
+            {gym.Location}
           </option>
         ))}
       </select>
@@ -133,7 +141,7 @@ const ChooseGymAndTrainer = ({ navigate, userId }) => {
             </option>
             {trainers.map((trainer) => (
               <option key={trainer.id} value={trainer.id}>
-                {trainer.trainerName}
+                {trainer.Trainername}
               </option>
             ))}
           </select>

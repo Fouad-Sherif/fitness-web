@@ -30,6 +30,7 @@ const AddGymForm = ({ navigate }) => {
       setPricePerMonth('');
       setPricePer3Months('');
       setPricePer1Year('');
+      navigate("addpersonaltrainers");
     } catch (error) {
       setMessage(error.message);
     }

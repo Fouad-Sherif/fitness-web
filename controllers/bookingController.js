@@ -1,3 +1,5 @@
+const db = require('../database/db');
+
 exports.addBooking = (req, res) => {
     const { userId, gymId, trainerId } = req.body;
     const sql = `INSERT INTO booking (userid, gymid, trainerid) VALUES (?, ?, ?)`;

@@ -10,10 +10,10 @@ exports.getGymLocations = (req,res) => {
 };
 
 exports.addGymLocation = (req , res) =>{
-    const {location , pricePerMonth , priceper3Months , pricePerYear } =req.body;
+    const {location , pricePerMonth, pricePer3Months, pricePer1Year} =req.body;
     const sql =`INSERT INTO gymlocations (Location, pricepermonth, priceper3months, priceper1year) VALUES (?, ?, ?, ?)`;
 
-    db.run(sql , [location , pricePerMonth , priceper3Months , pricePerYear], function(err) {
+    db.run(sql , [location ,  pricePerMonth, pricePer3Months, pricePer1Year], function(err) {
         if(err) return res.status(500).json({error: err.message});
         res.status(201).json({id:this.lastID});
     });

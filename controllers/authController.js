@@ -31,6 +31,6 @@ exports.login = (req, res) => {
         secure:true,
     });
 
-    res.json({ message: "Logged In successfully" , isAdmin : user.ISADMIN });
+    res.json({ message: "Logged In successfully" , userId : user.id ,  isAdmin : user.ISADMIN });
   });
 };
